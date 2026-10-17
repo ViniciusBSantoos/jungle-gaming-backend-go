@@ -1,0 +1,31 @@
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: jungle-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-jungle}
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Configure a senha no arquivo .env}"
+      POSTGRES_DB: ${POSTGRES_DB:-jungle_gaming}
+    ports:
+      - "5432:5432"
+    volumes:
+      - jungle_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jungle -d jungle_gaming"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4
+    container_name: jungle-keycloak
+    command: start-dev
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME:-admin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: "${KC_BOOTSTRAP_ADMIN_PASSWORD:?Configure a senha no arquivo .env}"
+    ports:
+      - "8081:8080"
+
+volumes:
+  jungle_pgdata:

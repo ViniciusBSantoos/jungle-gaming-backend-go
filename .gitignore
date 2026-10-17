@@ -1,0 +1,29 @@
+
+# Variaveis de ambiente e credenciais
+.env
+.env.*
+!.env.example
+
+# Arquivos compilados
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+
+# Cobertura de testes
+coverage.out
+coverage.html
+
+# Arquivos temporarios
+*.log
+tmp/
+temp/
+
+# Configuracoes locais do editor
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
